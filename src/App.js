@@ -1,11 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
 
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import GoogleLogin from 'react-google-login';
-import FormComp from './components/Form';
+import './App.css';
+import FormComp from './components/FormComp';
 
 import { toggle } from './actions';
 

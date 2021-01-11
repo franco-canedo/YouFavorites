@@ -9,9 +9,7 @@ const API = 'http://localhost:3000';
 
 const FormComp = () => {
     const [form, setForm] = useState({
-        name: 'franco',
-        username: '',
-        email: '',
+        name: '',
     });
     const [users, setUsers] = useState([]);
 
@@ -34,14 +32,12 @@ const FormComp = () => {
     }
 
 
-    const createNewUser = async e => {
+    const createNewUser = e => {
         e.preventDefault();
         const fd = new FormData();
         fd.append('name', form.name);
-        fd.append('username', form.username);
-        fd.append('email', form.email);
 
-        axios.post(`${API}/new`, fd)
+        axios.post(`${API}/users`, fd)
             .then(res => {
                 console.log(res);
 
@@ -57,26 +53,26 @@ const FormComp = () => {
             <Form>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your name" 
-                    name="name"
-                    value={form.value} onChange={handleChange}/>
-                   
+                    <Form.Control type="text" placeholder="Enter your name"
+                        name="name"
+                        value={form.value} onChange={handleChange} />
+
                 </Form.Group>
-                <Button variant="primary" type="submit" 
-                value="submit" onSubmit={createNewUser}>
+                <Button variant="primary" type="button"
+                    value="submit" onClick={createNewUser}>
                     Submit
   </Button>
             </Form>
             <div className="google-button">
-            <GoogleLogin
+                {/* <GoogleLogin
                 clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
-            />
+            /> */}
             </div>
-           
+
         </>
 
     );
