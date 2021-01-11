@@ -1,0 +1,22 @@
+:root {
+    --color:#3A3E3F;
+}
+
+.menu-categories {
+    
+    height: 100vh;
+    max-width: 300px;
+    background-color: var(--color);
+    box-shadow:10px 10px 5px -2px rgb(192, 61, 61);
+}
+
+.min-menu {
+   
+    height: 1000px;
+    background-color: var(--color);
+    max-width: 100px;
+}
+
+.cat-title {
+    column-count: 2;
+}

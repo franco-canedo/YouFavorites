@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Favorites from './containers/Favorites';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -21,6 +22,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router>
         <Route path='/' exact component={App} />
+        <Route path='/favorites' exact component={Favorites} />
       </Router>
     </Provider>
   </React.StrictMode>,
