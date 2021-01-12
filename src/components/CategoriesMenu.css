@@ -1,22 +1,98 @@
 :root {
     --color:#3A3E3F;
+    --marginTop: 60px;
 }
 
+ul {
+    list-style-type: none;
+  }
+
 .menu-categories {
-    
+    margin-top: var(--marginTop);
+    color: white;
     height: 100vh;
     max-width: 300px;
     background-color: var(--color);
-    box-shadow:10px 10px 5px -2px rgb(192, 61, 61);
+   position: fixed;
+    animation: maximize_menu 1s ease;
 }
 
 .min-menu {
-   
+    margin-top: var(--marginTop);;
+    color: white;
     height: 1000px;
     background-color: var(--color);
     max-width: 100px;
+    animation: minimize_menu 1s ease;
+
+   
+}
+
+.minimize-button {
+    margin-left: 60%;
+    
+    
 }
 
 .cat-title {
     column-count: 2;
+    padding: 5%;
 }
+
+@keyframes minimize_menu {
+    0%{
+        transform: translateX(100px);
+      }
+      100%{
+        transform: translateX(0);
+      }
+}
+
+@keyframes maximize_menu {
+    0%{
+        transform: translateX(-200px);
+      }
+      100%{
+        transform: translateX(0px);
+      }
+}
+
+.categories-div {
+    display: flex;
+    justify-content: center;
+}
+
+.category {
+    border-bottom: solid;
+    min-width: 250px;
+    padding: 5%;
+    display: inline-block;
+}
+
+.category-min {
+    border-bottom: solid;
+    min-width: 100%;
+    padding: 5%;
+    
+}
+
+@keyframes hover_category {
+    0%{
+        transform: translate(0px, 0px);
+    }
+
+    100%{
+        transform: translate(10px, -5px);
+    }
+}
+
+/* .category:hover {
+    color: goldenrod;
+    animation: hover_category .2s ease;
+} */
+
+.category:hover {
+    color: goldenrod;
+    transform: translate(10px, -5px);
+    animation: hover_category .2s ease-out;
+  }

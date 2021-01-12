@@ -19,20 +19,24 @@ const Header = () => {
         <header>
             <div className="header">
                 <div className="header-item logo">
-                    <h2>YouFavs</h2>
+                   
+                    <i class="fas fa-cubes"></i>
+                    <i class="fas fa-cubes"></i>
+                    <i class="fas fa-cubes"></i>
+                    <i class="fas fa-cubes"></i>
                 </div>
                 <div className="header-item form">
                     <Form>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Control type="text" placeholder="Search a video"
+                            <Form.Control type="text" placeholder="Search YouTube"
                                 name="search"
                                 value={videoSearch.value} onChange={handleChange} />
 
                         </Form.Group>
                         <div className="button-div">
-                        <Button variant="dark" type="button"
+                        <Button variant="outline-light" type="button"
                             value="Search" onClick={search}>
-                            Submit
+                            Search
                 </Button>
                         </div>
                         
@@ -40,7 +44,7 @@ const Header = () => {
 
                 </div>
                 <div className="header-item profile">
-                    <h2>franco</h2>
+                <i class="far fa-id-card"></i>
                 </div>
                
             </div>
