@@ -19,11 +19,17 @@ const Header = () => {
         <header>
             <div className="header">
                 <div className="header-item logo">
-                   
-                    <i class="fas fa-cubes"></i>
-                    <i class="fas fa-cubes"></i>
-                    <i class="fas fa-cubes"></i>
-                    <i class="fas fa-cubes"></i>
+                    <div>
+                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-cubes"></i>
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <div>
+                        <h4>YouFavs</h4>
+                    </div>
+
+
                 </div>
                 <div className="header-item form">
                     <Form>
@@ -34,19 +40,19 @@ const Header = () => {
 
                         </Form.Group>
                         <div className="button-div">
-                        <Button variant="outline-light" type="button"
-                            value="Search" onClick={search}>
-                            Search
+                            <Button variant="outline-light" type="button"
+                                value="Search" onClick={search}>
+                                Search
                 </Button>
                         </div>
-                        
+
                     </Form>
 
                 </div>
                 <div className="header-item profile">
-                <i class="far fa-id-card"></i>
+                    <i class="far fa-id-card"></i>
                 </div>
-               
+
             </div>
 
         </header>
