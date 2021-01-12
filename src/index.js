@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Favorites from './containers/Favorites';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -11,13 +14,16 @@ import allReducers from './reducers';
 
 const store = createStore(
   allReducers,
- window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <Router>
+        <Route path='/' exact component={App} />
+        <Route path='/favorites' exact component={Favorites} />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
