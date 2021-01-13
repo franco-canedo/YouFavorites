@@ -10,7 +10,7 @@ const VideoCard = (props) => {
                         src={`https://www.youtube.com/embed/${props.video}`}
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen="true"></iframe>
+                        allowFullScreen="true"></iframe>
                 </div>
                 <div className='title-video'>
                 <h3>title</h3>

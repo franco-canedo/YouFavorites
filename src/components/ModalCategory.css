@@ -1,0 +1,23 @@
+@keyframes slide_cat_modale_in {
+    0%{
+        transform: translateX(-500px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}
+
+.show-modal-category {
+    /* position: absolute; */
+    animation: slide_cat_modale_in 3s ease;
+    border: solid;
+    background-color: whitesmoke;
+}
+
+.min-modal-category {
+    position: absolute;
+    border: double;
+    /* transform: translateX(-500px); */
+    opacity: 0;
+    background-color: whitesmoke;
+}

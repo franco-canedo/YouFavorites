@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import { Redirect } from "react-router-dom";
+import {API_ROOT} from '../constants';
 
-const API = 'http://localhost:3000';
+
 const headers = {'X-Requested-With': 'XMLHttpRequest'};
 
 const FormComp = () => {
@@ -16,7 +17,7 @@ const FormComp = () => {
         console.log(response);
         console.log(response.profileObj);
         console.log(response.tokenObj);
-        axios.post(`${API}/auth/google_oauth`,
+        axios.post(`${API_ROOT}/auth/google_oauth`,
         { 
             profileObj:  response.profileObj,
             access_token: response.tokenObj,

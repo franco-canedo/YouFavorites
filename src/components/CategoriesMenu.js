@@ -1,8 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './CategoriesMenu.css';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
+import ModalCategory from './ModalCategory';
+import axios from 'axios';
+import {API_ROOT} from '../constants';
 
 const CategoriesMenu = () => {
     const [minimize, setMinimize] = useState(false);
@@ -15,6 +18,15 @@ const CategoriesMenu = () => {
         'movies',
 
     ])
+    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        axios.get(`${API_ROOT}/categories`)
+        .then(res => {
+            console.log(res);
+            
+        }).catch(error => console.log(error))
+    }, [])
 
     const toggleMenu = () => {
         setMinimize(prevState => !prevState);
@@ -23,6 +35,10 @@ const CategoriesMenu = () => {
         } else {
             setSign('<')
         }
+    }
+
+    const toggleModal = () => {
+        setShow(prevState => !prevState);
     }
     return (
         <div className={minimize ? 'min-menu' : 'menu-categories'}>
@@ -64,10 +80,14 @@ const CategoriesMenu = () => {
             </div>
             {
                 minimize ? null :
-                    <div className="add-button-category">
+                    <div className="add-button-category" onClick={toggleModal}>
                         <h3>+</h3>
                     </div>
             }
+            {
+                show ?  <ModalCategory show={show} toggleModal={toggleModal}/> : null
+            }
+           
 
 
         </div>
