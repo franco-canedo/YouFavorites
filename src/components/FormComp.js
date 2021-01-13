@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const API = 'http://localhost:3000';
+const headers = {'X-Requested-With': 'XMLHttpRequest'};
 
 const FormComp = () => {
     const [form, setForm] = useState({
@@ -31,6 +32,12 @@ const FormComp = () => {
         });
     }
 
+    const googleSignin = () => {
+        axios.get(`${API}/login`,
+                { params: { access_token: 'token' } },
+                headers);
+    }
+
 
     const createNewUser = e => {
         e.preventDefault();
@@ -50,9 +57,9 @@ const FormComp = () => {
 
     return (
         <>
-            <Form>
+            {/* <Form>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Name</Form.Label>
+                    
                     <Form.Control type="text" placeholder="Enter your name"
                         name="name"
                         value={form.value} onChange={handleChange} />
@@ -62,15 +69,16 @@ const FormComp = () => {
                     value="submit" onClick={createNewUser}>
                     Submit
   </Button>
-            </Form>
+            </Form> */}
             <div className="google-button">
-                {/* <GoogleLogin
+                {/* <button onClick={googleSignin}>Google Signin</button> */}
+                <GoogleLogin
                 clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
-            /> */}
+            />
             </div>
 
         </>
