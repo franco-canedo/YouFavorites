@@ -6,6 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ModalCategory from './ModalCategory';
 import axios from 'axios';
 import {API_ROOT} from '../constants';
+import {selectCategory} from '../actions';
 
 const CategoriesMenu = () => {
     const [minimize, setMinimize] = useState(false);
@@ -19,12 +20,13 @@ const CategoriesMenu = () => {
 
     ])
     const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get(`${API_ROOT}/categories`)
         .then(res => {
             console.log(res);
-            
+
         }).catch(error => console.log(error))
     }, [])
 
@@ -66,9 +68,10 @@ const CategoriesMenu = () => {
                                 </div>
                             }) :
                             categories.map(category => {
-                                return <div className="categories-div">
+                                return <div className="categories-div"
+                                onClick={() => dispatch(selectCategory(category))}>
                                     <div className="category">
-                                        <li>{category}</li>
+                                        <li>{category.charAt(0).toUpperCase() + category.slice(1)}</li>
                                     </div>
 
                                 </div>

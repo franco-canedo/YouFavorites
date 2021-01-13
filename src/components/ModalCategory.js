@@ -38,11 +38,13 @@ const ModalCategory = (props) => {
         // </div>
 
         <>
-            <Modal show={props.show} onHide={props.toggleModal}>
-                <Modal.Header closeButton>
-                   
-                </Modal.Header>
-                <Modal.Body><Form>
+            <Modal show={props.show} onHide={props.toggleModal} 
+             aria-labelledby="contained-modal-title-vcenter"
+             centered>
+                <Modal.Body>
+                    <div className="modal-div">
+                       
+                    <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>New Category</Form.Label>
                         <Form.Control type="text" 
@@ -50,12 +52,12 @@ const ModalCategory = (props) => {
                         onChange={handleChange}
                         placeholder="Category name" />
                     </Form.Group>
-                </Form></Modal.Body>
-                <Modal.Footer>
-                    <Button variant="dark" onClick={createCategory}>
+                </Form>
+                <Button variant="dark" onClick={createCategory}>
                         Save Changes
                 </Button>
-                </Modal.Footer>
+                </div>
+                </Modal.Body>
             </Modal>
         </>
     )
