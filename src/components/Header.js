@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import './Header.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Image from 'react-bootstrap/Image';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 
 const Header = () => {
     const [videoSearch, setVideoSearch] = useState('');
@@ -16,8 +20,10 @@ const Header = () => {
         console.log('search');
     }
     return (
+       
         <header>
             <div className="header">
+               
                 <div className="header-item logo">
                     <div>
                         <i class="fas fa-cubes"></i>
@@ -50,12 +56,17 @@ const Header = () => {
 
                 </div>
                 <div className="header-item profile">
-                    <i class="far fa-id-card"></i>
+                    <NavDropdown title="Franco" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+                    </NavDropdown>
+                    <Image height={30} src={process.env.PUBLIC_URL + '/logo192.png'} roundedCircle />
+                    {/* <i class="far fa-id-card"></i> */}
                 </div>
-
+               
             </div>
 
         </header>
+        
     )
 }
 

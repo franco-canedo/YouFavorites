@@ -50,5 +50,7 @@ header {
 .profile {
     padding: 15px;
     padding-right: 50px;
+    column-count: 2;
+   
 }
 
