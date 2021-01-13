@@ -2,78 +2,42 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Redirect } from "react-router-dom";
 
 const API = 'http://localhost:3000';
 const headers = {'X-Requested-With': 'XMLHttpRequest'};
 
 const FormComp = () => {
-    const [form, setForm] = useState({
-        name: '',
-    });
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        axios.get(`${API}/users`)
-            .then(resp => {
-                console.log(resp.data);
-                setUsers(resp.data);
-            }).catch(error => console.log(error));
-    }, []);
-
-
-
+    const [redirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
 
-    const handleChange = (event) => {
-        setForm({
-            ...form, [event.target.name]: [event.target.value],
-        });
-    }
-
-    const googleSignin = () => {
-        axios.get(`${API}/login`,
-                { params: { access_token: 'token' } },
-                headers);
-    }
-
-
-    const createNewUser = e => {
-        e.preventDefault();
-        const fd = new FormData();
-        fd.append('name', form.name);
-
-        axios.post(`${API}/users`, fd)
-            .then(res => {
-                console.log(res);
-
-            }).catch(error => console.log(error));
-    }
-
     const responseGoogle = (response) => {
+        const access_token = response.tokenObj.access_token
         console.log(response);
+        console.log(response.profileObj);
+        console.log(response.tokenObj);
+        axios.post(`${API}/auth/google_oauth`,
+        { 
+            profileObj:  response.profileObj,
+            access_token: response.tokenObj,
+        },
+        headers)
+        .then(res => {
+            console.log('logedin');
+            setRedirect(true);
+
+        })
+        .catch(error => console.log(error))
     }
 
     return (
         <>
-            {/* <Form>
-                <Form.Group controlId="formBasicEmail">
-                    
-                    <Form.Control type="text" placeholder="Enter your name"
-                        name="name"
-                        value={form.value} onChange={handleChange} />
-
-                </Form.Group>
-                <Button variant="primary" type="button"
-                    value="submit" onClick={createNewUser}>
-                    Submit
-  </Button>
-            </Form> */}
-            <div className="google-button">
-                {/* <button onClick={googleSignin}>Google Signin</button> */}
+        {
+            redirect ?  <Redirect to="/favorites" /> : null
+        }
+            <div className="google-button">               
                 <GoogleLogin
-                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                clientId="692431735633-1obtk8vn6tqp47tenh8j3bpdeh20ahk4.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
