@@ -12,13 +12,23 @@ function App() {
     <div>
       <div className="app-title-container">
         <div className="app-title-div">
-        <h1>YouTube Favorites</h1>
+          <div>
+            <i class="fas fa-cubes"></i>
+            <i class="fas fa-cubes"></i>
+            <i class="fas fa-cubes"></i>
+            <i class="fas fa-cubes"></i>
+          </div>
+          <div>
+            <h1>YouFavs</h1>
+          </div>
+
         </div>
-        
+
       </div>
       <div className="login-form-container">
         <div className="login-form-div">
-        <FormComp/>
+          <h3>Signin with Google</h3>
+          <FormComp />
         </div>
 
       </div>

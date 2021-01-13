@@ -22,6 +22,7 @@ ul {
     color: white;
     height: 1000px;
     background-color: var(--color);
+    /* min-width: 300px; */
     max-width: 100px;
     animation: minimize_menu 1s ease;
     position: fixed;
@@ -44,7 +45,7 @@ ul {
         transform: translateX(100px);
       }
       100%{
-        transform: translateX(0);
+        transform: translateX(0px);
       }
 }
 
