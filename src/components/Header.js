@@ -27,9 +27,6 @@ const Header = () => {
                 <div className="header-item logo">
                     <div>
                         <i class="fas fa-cubes"></i>
-                        <i class="fas fa-cubes"></i>
-                        <i class="fas fa-cubes"></i>
-                        <i class="fas fa-cubes"></i>
                     </div>
                     <div>
                         <h4>YouFavs</h4>

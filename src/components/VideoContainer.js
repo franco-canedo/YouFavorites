@@ -1,8 +1,8 @@
 import './VideoContainer.css';
 import VideoCard from './VideoCard';
-import {useState} from 'react';
+import { useState } from 'react';
 import AddModal from './AddModal';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const VideoContainer = () => {
     const [videos, setVideos] = useState([
@@ -21,22 +21,24 @@ const VideoContainer = () => {
     }
     return (
         <div className="video-container">
-           <h2>{chosenCategory}</h2>
+
             <div className="add-button" onClick={toggleModal}>
                 <h1>+</h1>
             </div>
             <div className="cards-container">
-            <h2>{chosenCategory.toUpperCase()}</h2>
+                <div className="category-title">
+                    <h2>{chosenCategory.toUpperCase()}</h2>
+                </div>
                 {
                     videos.map(video => {
-                        
-                        return <VideoCard video={video}/>
+
+                        return <VideoCard video={video} />
                     })
                 }
             </div>
-            <AddModal show={show} 
-            toggleModal={toggleModal}
-            category={chosenCategory}/>
+            <AddModal show={show}
+                toggleModal={toggleModal}
+                category={chosenCategory} />
         </div>
     )
 }

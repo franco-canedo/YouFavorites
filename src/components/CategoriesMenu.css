@@ -1,6 +1,6 @@
 :root {
     --color:#3A3E3F;
-    --marginTop: 60px;
+    --marginTop: 80px;
 }
 
 ul {
@@ -13,8 +13,10 @@ ul {
     height: 100vh;
     max-width: 300px;
     background-color: var(--color);
-   position: fixed;
+    position: fixed;
     animation: maximize_menu 1s ease;
+    z-index: 1;
+    border-right: thin;
 }
 
 .min-menu {
@@ -26,12 +28,13 @@ ul {
     max-width: 100px;
     animation: minimize_menu 1s ease;
     position: fixed;
+    border-right: thin;
    
 }
 
 .minimize-button {
     margin-left: 60%;
-    
+    z-index: 1;
     
 }
 

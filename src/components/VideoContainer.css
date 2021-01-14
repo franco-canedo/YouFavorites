@@ -22,8 +22,15 @@
     
 }
 
+.category-title {
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    position: sticky;
+}
+
 .cards-container {
-    margin-left: 300px;
+    margin-left: 10px;
     margin-top: 50px;
 }
 
