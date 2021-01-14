@@ -6,18 +6,32 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
+import youtube from '../apis/youtube';
+import {submitSearch} from '../actions';
 
+const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
 const Header = () => {
     const [videoSearch, setVideoSearch] = useState('');
+    const [videos, setVideos] =useState([]);
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
     }
 
 
-    const search = () => {
+    const search = async (termSearch) => {
         console.log('search');
+        const response = await youtube.get('/search', {
+            params: {
+                q: termSearch
+            }
+        })
+        console.log(response);
+        dispatch(submitSearch());
+        setVideos(response.data.items);
     }
     return (
        
@@ -39,12 +53,12 @@ const Header = () => {
                         <Form.Group controlId="formBasicEmail">
                             <Form.Control type="text" placeholder="Search YouTube"
                                 name="search"
-                                value={videoSearch.value} onChange={handleChange} />
+                                value={videoSearch} onChange={handleChange} />
 
                         </Form.Group>
                         <div className="button-div">
                             <Button variant="outline-light" type="button"
-                                value="Search" onClick={search}>
+                                value="Search" onClick={() => search(videoSearch)}>
                                 Search
                 </Button>
                         </div>

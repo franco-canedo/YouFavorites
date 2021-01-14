@@ -12,10 +12,10 @@
     border: none !important;
     max-width: 300px;
     float: left;
-    width: 50%;
+    width: 50%; 
     margin: 2%;
     background-color: var(--colorVideo);
-   animation: card_slide_up 3s ease;
+    animation: card_slide_up 3s ease;
 }
 
 .iframe-container {
