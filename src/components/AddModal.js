@@ -4,19 +4,28 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import {API_ROOT} from '../constants';
 import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import youtube from '../apis/youtube';
+import {submitSearch} from '../actions';
+import {videoResults} from '../actions';
 
 const AddModal = (props) => {
-    const [videoTitle, setVideoTitle] = useState('');
+    const [videoSearch, setVideoSearch] = useState('');
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
-        setVideoTitle(e.target.value);
+        setVideoSearch(e.target.value);
     }
 
-    const search = () => {
-        const fd = new FormData();
-        console.log('search');
-
-       
+    const search = async (termSearch) => {      
+        const response = await youtube.get('/search', {
+            params: {
+                q: termSearch
+            }
+        });
+        console.log(response.data.items);
+        dispatch(submitSearch());
+        dispatch(videoResults(response.data.items));
     }
     return (
         <>
@@ -28,13 +37,13 @@ const AddModal = (props) => {
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Search</Form.Label>
                     <Form.Control type="text" 
-                    value={videoTitle}
+                    value={videoSearch}
                     onChange={handleChange}
-                    placeholder="video title..." />
+                    placeholder="Search YouTube" />
                 </Form.Group>
             </Form>
-            <Button variant="dark" onClick={search}>
-                    Add to {props.category}
+            <Button variant="dark" type="button" onClick={() => search(videoSearch)}>
+                    Search
             </Button>
             </Modal.Body>
         </Modal>

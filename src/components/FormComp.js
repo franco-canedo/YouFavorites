@@ -22,8 +22,6 @@ const FormComp = () => {
             name: response.profileObj.givenName,
             imageUrl: response.profileObj.imageUrl,
         }
-        dispatch(sendUserInfo(userInfo));
-        setRedirect(true);
         axios.post(`${API_ROOT}/auth/google_oauth`,
         { 
             profileObj:  response.profileObj,
@@ -32,8 +30,8 @@ const FormComp = () => {
         headers)
         .then(res => {
             console.log('logedin');
-            setRedirect(true);
             dispatch(sendUserInfo(userInfo));
+            setRedirect(true);   
         })
         .catch(error => console.log(error))
     }
