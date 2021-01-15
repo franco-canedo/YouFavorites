@@ -9,6 +9,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios';
 import youtube from '../apis/youtube';
 import {submitSearch} from '../actions';
+import {videoResults} from '../actions';
 
 const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
@@ -22,15 +23,15 @@ const Header = () => {
     }
 
 
-    const search = async (termSearch) => {
-        console.log('search');
+    const search = async (termSearch) => {      
         const response = await youtube.get('/search', {
             params: {
                 q: termSearch
             }
         })
-        console.log(response);
+        console.log(response.data.items);
         dispatch(submitSearch());
+        dispatch(videoResults(response.data.items));
         setVideos(response.data.items);
     }
     return (
