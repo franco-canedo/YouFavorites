@@ -24,13 +24,12 @@ ul {
     color: white;
     height: 1000px;
     background-color: var(--color);
-    /* min-width: 300px; */
-    max-width: 60px;
+    /* max-width: 60px; */
     animation: minimize_menu 1s ease;
     position: fixed;
     border-right: thin;
     z-index: 1;
-   
+    animation-fill-mode: forwards;  
 }
 
 .minimize-button {
@@ -46,10 +45,13 @@ ul {
 
 @keyframes minimize_menu {
     0%{
-        transform: translateX(100px);
+        transform: translateX(0px);
+        width: 300px;
       }
       100%{
         transform: translateX(0px);
+        width: 60px;
+        
       }
 }
 
