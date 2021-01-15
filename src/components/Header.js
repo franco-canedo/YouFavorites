@@ -17,6 +17,7 @@ const Header = () => {
     const [videoSearch, setVideoSearch] = useState('');
     const [videos, setVideos] =useState([]);
     const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.user);
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
@@ -28,10 +29,11 @@ const Header = () => {
             params: {
                 q: termSearch
             }
-        })
+        });
         console.log(response.data.items);
         dispatch(submitSearch());
         dispatch(videoResults(response.data.items));
+        
         setVideos(response.data.items);
     }
     return (
@@ -68,10 +70,10 @@ const Header = () => {
 
                 </div>
                 <div className="header-item profile">
-                    <NavDropdown title="Franco" id="basic-nav-dropdown">
+                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
                     </NavDropdown>
-                    <Image height={30} src={process.env.PUBLIC_URL + '/logo192.png'} roundedCircle />
+                    <Image height={30} src={userInfo.imageUrl} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
                 </div>
                

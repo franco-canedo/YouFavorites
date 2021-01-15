@@ -4,6 +4,7 @@ import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import { Redirect } from "react-router-dom";
 import {API_ROOT} from '../constants';
+import {sendUserInfo} from '../actions';
 
 
 const headers = {'X-Requested-With': 'XMLHttpRequest'};
@@ -13,10 +14,16 @@ const FormComp = () => {
     const dispatch = useDispatch();
 
     const responseGoogle = (response) => {
-        const access_token = response.tokenObj.access_token
         console.log(response);
         console.log(response.profileObj);
         console.log(response.tokenObj);
+
+        const userInfo = {
+            name: response.profileObj.givenName,
+            imageUrl: response.profileObj.imageUrl,
+        }
+        dispatch(sendUserInfo(userInfo));
+        setRedirect(true);
         axios.post(`${API_ROOT}/auth/google_oauth`,
         { 
             profileObj:  response.profileObj,
@@ -26,7 +33,7 @@ const FormComp = () => {
         .then(res => {
             console.log('logedin');
             setRedirect(true);
-
+            dispatch(sendUserInfo(userInfo));
         })
         .catch(error => console.log(error))
     }

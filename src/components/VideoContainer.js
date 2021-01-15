@@ -24,21 +24,21 @@ const VideoContainer = () => {
     }
     return (
         <div className="video-container">
-          
+
 
 
             {
                 search ? <SearchContainer /> :
-                <>
-                <div className="add-button" onClick={toggleModal}>
-                        <h1>+</h1>
-                    </div>
-                    <CardContainer show={show}
-                        videos={videos}
-                        toggleModal={toggleModal}
-                        category={chosenCategory} />
+                    <>
+                        <div className="add-button" onClick={toggleModal}>
+                            <h1>+</h1>
+                        </div>
+                        <CardContainer show={show}
+                            videos={videos}
+                            toggleModal={toggleModal}
+                            category={chosenCategory} />
 
-                        </>
+                    </>
             }
 
 

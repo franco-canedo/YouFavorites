@@ -1,7 +1,8 @@
 import './SearchCard.css';
-import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
-const SearchCard = ({video}) => {
+const SearchCard = ({ video }) => {
     return (
         <>
             <div className="search-card">
@@ -17,8 +18,15 @@ const SearchCard = ({video}) => {
                     <h5>{video.snippet.title}</h5>
                     <h6>Channel: {video.snippet.channelTitle}</h6>
                     <p>{video.snippet.description}</p>
-                    <Button variant="outline-primary" type="button">Add</Button>
+
+                   
                 </div>
+                <DropdownButton id="dropdown-button-drop-up" 
+                    title="Add" drop="up">
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </DropdownButton>
             </div>
 
         </>

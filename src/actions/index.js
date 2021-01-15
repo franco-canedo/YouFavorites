@@ -16,3 +16,11 @@ export const videoResults = (videos) => ({
     payload: videos,
 });
 
+export const backToCategory = () => ({
+    type: 'BACK_TO_CATEGORY',
+});
+
+export const sendUserInfo = (userInfo) => ({
+    type: 'USER_INFO',
+    payload: userInfo,
+})

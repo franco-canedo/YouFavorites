@@ -7,6 +7,7 @@ import ModalCategory from './ModalCategory';
 import axios from 'axios';
 import {API_ROOT} from '../constants';
 import {selectCategory} from '../actions';
+import {backToCategory} from '../actions';
 
 const CategoriesMenu = () => {
     const [minimize, setMinimize] = useState(false);
@@ -69,7 +70,10 @@ const CategoriesMenu = () => {
                             }) :
                             categories.map(category => {
                                 return <div className="categories-div"
-                                onClick={() => dispatch(selectCategory(category))}>
+                                onClick={() => {
+                                    dispatch(selectCategory(category));
+                                    dispatch(backToCategory());
+                                    }}>
                                     <div className="category">
                                         <li>{category.charAt(0).toUpperCase() + category.slice(1)}</li>
                                     </div>

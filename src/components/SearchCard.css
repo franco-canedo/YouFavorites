@@ -23,6 +23,15 @@ margin-bottom: 30px;
     }
 }
 
+.iframe-container-search {
+    break-inside: avoid-column;
+    box-shadow: 50px;
+}
+
+.title-video {
+    break-inside: avoid-column;
+}
+
 
 
 
