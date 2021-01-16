@@ -12,22 +12,15 @@ import {backToCategory} from '../actions';
 const CategoriesMenu = () => {
     const [minimize, setMinimize] = useState(false);
     const [sign, setSign] = useState('<');
-    const [categories, setCategories] = useState([
-        'fitness',
-        'cats',
-        'video games',
-        'cars',
-        'movies',
-
-    ])
+    const [categories, setCategories] = useState([]);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get(`${API_ROOT}/categories`)
         .then(res => {
-            console.log(res);
-
+            console.log(res, 'categorioes');
+            setCategories([...res.data]);
         }).catch(error => console.log(error))
     }, [])
 
@@ -42,6 +35,10 @@ const CategoriesMenu = () => {
 
     const toggleModal = () => {
         setShow(prevState => !prevState);
+    }
+
+    const addCategoryClient = (name) => {
+        setCategories(prevState => [...prevState, { name: name }]);
     }
     return (
         <div className={minimize ? 'min-menu' : 'menu-categories'}>
@@ -75,7 +72,7 @@ const CategoriesMenu = () => {
                                     dispatch(backToCategory());
                                     }}>
                                     <div className="category">
-                                        <li>{category.charAt(0).toUpperCase() + category.slice(1)}</li>
+                                        <li>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</li>
                                     </div>
 
                                 </div>
@@ -92,7 +89,9 @@ const CategoriesMenu = () => {
                     </div>
             }
             {
-                show ?  <ModalCategory show={show} toggleModal={toggleModal}/> : null
+                show ?  <ModalCategory show={show} 
+                toggleModal={toggleModal}
+                addCategoryClient={addCategoryClient}/> : null
             }
            
 

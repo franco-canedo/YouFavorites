@@ -6,7 +6,11 @@ const CardContainer = (props) => {
         <>
             <div className="cards-container">
                 <div className="category-title">
-                    <h2>{props.category.toUpperCase()}</h2>
+                    {
+                        props.category ? 
+                        <h2>{props.category.name.toUpperCase()}</h2> :
+                        null
+                    }
                 </div>
 
                 {

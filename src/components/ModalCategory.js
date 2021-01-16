@@ -20,6 +20,7 @@ const ModalCategory = (props) => {
         axios.post(`${API_ROOT}/categories`, fd)
         .then(res => {
             console.log(res);
+            props.addCategoryClient(res.data.name);
             props.toggleModal();
         }).catch(error => console.log(error));
     }
