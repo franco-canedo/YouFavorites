@@ -6,15 +6,17 @@ import Favorites from './containers/Favorites';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
+import { createStore, compose, applyMiddleware } from 'redux';
 import allReducers from './reducers';
+
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancer(applyMiddleware(thunk)),
 );
 
 ReactDOM.render(

@@ -10,6 +10,7 @@ import axios from 'axios';
 import youtube from '../apis/youtube';
 import {submitSearch} from '../actions';
 import {videoResults} from '../actions';
+import {logout} from '../actions';
 
 const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
@@ -17,7 +18,7 @@ const Header = () => {
     const [videoSearch, setVideoSearch] = useState('');
     const [videos, setVideos] =useState([]);
     const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.user);
+    const userInfo = useSelector(state => state.userInfo);
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
@@ -75,6 +76,8 @@ const Header = () => {
                     </NavDropdown>
                     <Image height={30} src={userInfo.imageUrl} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
+                    <Button variant="dark" size="sm"
+                    onClick={dispatch(logout())}>Logout</Button>
                 </div>
                
             </div>

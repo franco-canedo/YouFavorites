@@ -29,7 +29,9 @@ const FormComp = () => {
         },
         headers)
         .then(res => {
-            console.log('logedin');
+            console.log('logedin', res.data.google_token);
+            localStorage.setItem("google_token", res.data.google_token);
+            localStorage.setItem("uid", res.data.uid);
             dispatch(sendUserInfo(userInfo));
             setRedirect(true);   
         })

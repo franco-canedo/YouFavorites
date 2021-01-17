@@ -17,7 +17,10 @@ const CategoriesMenu = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`${API_ROOT}/categories`)
+        const fd = new FormData();
+        fd.append('google_token', localStorage.google_token);
+        fd.append('uid', localStorage.uid);
+        axios.get(`${API_ROOT}/user/categories`, fd)
         .then(res => {
             console.log(res, 'categorioes');
             setCategories([...res.data]);
