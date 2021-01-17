@@ -3,26 +3,46 @@ import { useState, useEffect } from 'react';
 import './Header.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Image from 'react-bootstrap/Image';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
+import youtube from '../apis/youtube';
+import {submitSearch} from '../actions';
+import {videoResults} from '../actions';
+
+const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
 const Header = () => {
     const [videoSearch, setVideoSearch] = useState('');
+    const [videos, setVideos] =useState([]);
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.user);
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
     }
 
 
-    const search = () => {
-        console.log('search');
+    const search = async (termSearch) => {      
+        const response = await youtube.get('/search', {
+            params: {
+                q: termSearch
+            }
+        });
+        console.log(response.data.items);
+        dispatch(submitSearch());
+        dispatch(videoResults(response.data.items));
+        
+        setVideos(response.data.items);
     }
     return (
+       
         <header>
             <div className="header">
+               
                 <div className="header-item logo">
                     <div>
-                        <i class="fas fa-cubes"></i>
-                        <i class="fas fa-cubes"></i>
-                        <i class="fas fa-cubes"></i>
                         <i class="fas fa-cubes"></i>
                     </div>
                     <div>
@@ -36,12 +56,12 @@ const Header = () => {
                         <Form.Group controlId="formBasicEmail">
                             <Form.Control type="text" placeholder="Search YouTube"
                                 name="search"
-                                value={videoSearch.value} onChange={handleChange} />
+                                value={videoSearch} onChange={handleChange} />
 
                         </Form.Group>
                         <div className="button-div">
                             <Button variant="outline-light" type="button"
-                                value="Search" onClick={search}>
+                                value="Search" onClick={() => search(videoSearch)}>
                                 Search
                 </Button>
                         </div>
@@ -50,12 +70,17 @@ const Header = () => {
 
                 </div>
                 <div className="header-item profile">
-                    <i class="far fa-id-card"></i>
+                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+                    </NavDropdown>
+                    <Image height={30} src={userInfo.imageUrl} roundedCircle />
+                    {/* <i class="far fa-id-card"></i> */}
                 </div>
-
+               
             </div>
 
         </header>
+        
     )
 }
 

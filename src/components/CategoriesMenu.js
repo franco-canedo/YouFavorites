@@ -1,20 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './CategoriesMenu.css';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
+import ModalCategory from './ModalCategory';
+import axios from 'axios';
+import {API_ROOT} from '../constants';
+import {selectCategory} from '../actions';
+import {backToCategory} from '../actions';
 
 const CategoriesMenu = () => {
     const [minimize, setMinimize] = useState(false);
     const [sign, setSign] = useState('<');
-    const [categories, setCategories] = useState([
-        'fitness',
-        'cats',
-        'video games',
-        'cars',
-        'movies',
+    const [categories, setCategories] = useState([]);
+    const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
 
-    ])
+    useEffect(() => {
+        axios.get(`${API_ROOT}/categories`)
+        .then(res => {
+            console.log(res, 'categorioes');
+            setCategories([...res.data]);
+        }).catch(error => console.log(error))
+    }, [])
 
     const toggleMenu = () => {
         setMinimize(prevState => !prevState);
@@ -23,6 +31,14 @@ const CategoriesMenu = () => {
         } else {
             setSign('<')
         }
+    }
+
+    const toggleModal = () => {
+        setShow(prevState => !prevState);
+    }
+
+    const addCategoryClient = (name) => {
+        setCategories(prevState => [...prevState, { name: name }]);
     }
     return (
         <div className={minimize ? 'min-menu' : 'menu-categories'}>
@@ -50,9 +66,13 @@ const CategoriesMenu = () => {
                                 </div>
                             }) :
                             categories.map(category => {
-                                return <div className="categories-div">
+                                return <div className="categories-div"
+                                onClick={() => {
+                                    dispatch(selectCategory(category));
+                                    dispatch(backToCategory());
+                                    }}>
                                     <div className="category">
-                                        <li>{category}</li>
+                                        <li>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</li>
                                     </div>
 
                                 </div>
@@ -64,10 +84,16 @@ const CategoriesMenu = () => {
             </div>
             {
                 minimize ? null :
-                    <div className="add-button-category">
+                    <div className="add-button-category" onClick={toggleModal}>
                         <h3>+</h3>
                     </div>
             }
+            {
+                show ?  <ModalCategory show={show} 
+                toggleModal={toggleModal}
+                addCategoryClient={addCategoryClient}/> : null
+            }
+           
 
 
         </div>

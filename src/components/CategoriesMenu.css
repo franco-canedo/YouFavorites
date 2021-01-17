@@ -1,6 +1,6 @@
 :root {
     --color:#3A3E3F;
-    --marginTop: 60px;
+    --marginTop: 80px;
 }
 
 ul {
@@ -13,8 +13,10 @@ ul {
     height: 100vh;
     max-width: 300px;
     background-color: var(--color);
-   position: fixed;
+    position: fixed;
     animation: maximize_menu 1s ease;
+    z-index: 1;
+    border-right: thin;
 }
 
 .min-menu {
@@ -22,16 +24,17 @@ ul {
     color: white;
     height: 1000px;
     background-color: var(--color);
-    /* min-width: 300px; */
-    max-width: 100px;
+    /* max-width: 60px; */
     animation: minimize_menu 1s ease;
     position: fixed;
-   
+    border-right: thin;
+    z-index: 1;
+    animation-fill-mode: forwards;  
 }
 
 .minimize-button {
     margin-left: 60%;
-    
+    z-index: 1;
     
 }
 
@@ -42,10 +45,13 @@ ul {
 
 @keyframes minimize_menu {
     0%{
-        transform: translateX(100px);
+        transform: translateX(0px);
+        width: 300px;
       }
       100%{
         transform: translateX(0px);
+        width: 60px;
+        
       }
 }
 

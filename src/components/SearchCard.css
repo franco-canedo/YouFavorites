@@ -1,0 +1,38 @@
+.search-card {
+    column-count: 2;
+    background-color: var(--colorVideo);
+    animation: card_slide_up 3s ease;
+    padding: 10px;
+    box-shadow:  
+0px 0 0px #c0baba,
+0px 1px 0px rgb(196, 187, 196),
+5px 0 5px rgb(236, 211, 188);
+margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    .search-card {
+        column-count: 1;
+    }
+
+    p {
+       
+        visibility: hidden;
+       
+        display: none;
+    }
+}
+
+.iframe-container-search {
+    break-inside: avoid-column;
+    box-shadow: 50px;
+}
+
+.title-video {
+    break-inside: avoid-column;
+}
+
+
+
+
+
