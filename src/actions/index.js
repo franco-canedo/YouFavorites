@@ -29,9 +29,9 @@ export const userLoginFetch = user => {
 export const getProfileFetch = () => {
     console.log('profile fetch')
     return dispatch => {
-        const token = localStorage.google_token;
+        const token = localStorage.token;
         if (token) {
-            return fetch(`${API_ROOT}/api/v1/profile`, {
+            return fetch(`${API_ROOT}/auth/profile`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,9 +44,12 @@ export const getProfileFetch = () => {
                     if (data.message) {
                         // An error will occur if the token is invalid.
                         // If this happens, you may want to remove the invalid token.
-                        localStorage.removeItem("token")
+                        console.log(data.message);
+                        localStorage.removeItem("token");
                     } else {
-                        dispatch(loginUser(data.user))
+                        console.log('success fetch profile', data);
+                        dispatch(loginUser(data));
+                        dispatch(setRedirect());
                     }
                 })
         }
@@ -80,7 +83,7 @@ export const sendUserInfo = (userInfo) => ({
     payload: userInfo,
 })
 
-const loginUser = userObj => ({
+export const loginUser = userObj => ({
     type: 'LOGIN_USER',
     payload: userObj
 });
@@ -92,5 +95,9 @@ const loggedIn = () => ({
 export const logout = () => ({
     type: 'LOGOUT_USER'
 });
+
+export const setRedirect = () => ({
+    type: 'REDIRECT'
+})
 
 

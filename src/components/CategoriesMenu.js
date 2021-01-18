@@ -9,7 +9,9 @@ import {API_ROOT} from '../constants';
 import {selectCategory} from '../actions';
 import {backToCategory} from '../actions';
 
-const CategoriesMenu = () => {
+const headers = {}
+
+const CategoriesMenu = ({user}) => {
     const [minimize, setMinimize] = useState(false);
     const [sign, setSign] = useState('<');
     const [categories, setCategories] = useState([]);
@@ -17,14 +19,29 @@ const CategoriesMenu = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fd = new FormData();
-        fd.append('google_token', localStorage.google_token);
-        fd.append('uid', localStorage.uid);
-        axios.get(`${API_ROOT}/user/categories`, fd)
-        .then(res => {
-            console.log(res, 'categorioes');
-            setCategories([...res.data]);
-        }).catch(error => console.log(error))
+        const token = localStorage.token;
+        if (token) {
+            return fetch(`${API_ROOT}/categories`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.message) {
+                        // An error will occur if the token is invalid.
+                        // If this happens, you may want to remove the invalid token.
+                        console.log(data.message);
+                        localStorage.removeItem("token");
+                    } else {
+                        console.log('success categories get', data);
+                       setCategories([...data]);
+                    }
+                })
+        }
     }, [])
 
     const toggleMenu = () => {
@@ -71,7 +88,7 @@ const CategoriesMenu = () => {
                             categories.map(category => {
                                 return <div className="categories-div"
                                 onClick={() => {
-                                    dispatch(selectCategory(category));
+                                    dispatch(selectCategory(category.name));
                                     dispatch(backToCategory());
                                     }}>
                                     <div className="category">

@@ -8,7 +8,7 @@ const CardContainer = (props) => {
                 <div className="category-title">
                     {
                         props.category ? 
-                        <h2>{props.category.name.toUpperCase()}</h2> :
+                        <h2>{props.category.toUpperCase()}</h2> :
                         null
                     }
                 </div>
