@@ -27,18 +27,6 @@ const ModalCategory = (props) => {
     }
 
     return (
-        // <div className="show-modal-category">
-        //     <Form>
-        //         <Form.Group controlId="formBasicEmail">
-        //             <Form.Label>New Category</Form.Label>
-        //             <Form.Control type="text" placeholder="Category name" />
-        //         </Form.Group>
-        //         <Button variant="primary" type="button" onClick={props.toggleModal}>
-        //             Save
-        //         </Button>
-        //     </Form>
-        // </div>
-
         <>
             <Modal show={props.show} onHide={props.toggleModal} 
              aria-labelledby="contained-modal-title-vcenter"
