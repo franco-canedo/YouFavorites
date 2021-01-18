@@ -16,6 +16,7 @@ const ModalCategory = (props) => {
     const createCategory = () => {
         const fd = new FormData();
         fd.append('name', category);
+        fd.append('google_token', localStorage.google_token);
 
         axios.post(`${API_ROOT}/categories`, fd)
         .then(res => {

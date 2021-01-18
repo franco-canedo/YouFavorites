@@ -5,13 +5,17 @@ import categoryReducer from './categoryReducer';
 import submitSearchReducer from './submitSearchReducer';
 import videoReducer from './videosReducer';
 import userInfoReducer from './userInfoReducer';
+import userReducer from './userReducer';
+import redirectReducer from './redirectReducer';
 
 const allReducers = combineReducers({
     toggle: toggleReducer,
     category: categoryReducer,
     search: submitSearchReducer,
     videos: videoReducer,
-    user: userInfoReducer,
+    userInfo: userInfoReducer,
+    user: userReducer,
+    redirect: redirectReducer,
   })
   
   export default allReducers;

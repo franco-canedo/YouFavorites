@@ -5,13 +5,16 @@ import GoogleLogin from 'react-google-login';
 import { Redirect } from "react-router-dom";
 import {API_ROOT} from '../constants';
 import {sendUserInfo} from '../actions';
+import {getProfileFetch} from '../actions';
+import {setRedirect} from '../actions';
 
 
 const headers = {'X-Requested-With': 'XMLHttpRequest'};
 
 const FormComp = () => {
-    const [redirect, setRedirect] = useState(false);
+    // const [redirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
+    const redirect = useSelector(state => state.redirect);
 
     const responseGoogle = (response) => {
         console.log(response);
@@ -29,11 +32,13 @@ const FormComp = () => {
         },
         headers)
         .then(res => {
-            console.log('logedin');
+            console.log('logedin', res.data);
+            localStorage.setItem('token', res.data.jwt);
+            localStorage.setItem('google_token', res.data.user.google_token);
             dispatch(sendUserInfo(userInfo));
-            setRedirect(true);   
+            dispatch(setRedirect());   
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
     }
 
     return (

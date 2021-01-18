@@ -6,18 +6,19 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import axios from 'axios';
 import youtube from '../apis/youtube';
 import {submitSearch} from '../actions';
 import {videoResults} from '../actions';
+import {logout} from '../actions';
 
 const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
-const Header = () => {
+const Header = ({user}) => {
     const [videoSearch, setVideoSearch] = useState('');
-    const [videos, setVideos] =useState([]);
+    const [videos, setVideos] = useState([]);
     const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.user);
+    
+
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
@@ -70,11 +71,13 @@ const Header = () => {
 
                 </div>
                 <div className="header-item profile">
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown title={user.name} id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
                     </NavDropdown>
-                    <Image height={30} src={userInfo.imageUrl} roundedCircle />
+                    <Image height={30} src={user.image_url} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
+                    <Button variant="dark" size="sm"
+                    onClick={dispatch(logout())}>Logout</Button>
                 </div>
                
             </div>

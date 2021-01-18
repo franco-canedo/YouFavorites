@@ -1,8 +1,71 @@
 import './SearchCard.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import {useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import { backToCategory } from '../actions';
+import ModalCategory from './ModalCategory';
+import {API_ROOT} from '../constants';
 
 const SearchCard = ({ video }) => {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.token;
+        if (token) {
+            return fetch(`${API_ROOT}/categories`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.message) {
+                        // An error will occur if the token is invalid.
+                        // If this happens, you may want to remove the invalid token.
+                        console.log(data.message);
+                        localStorage.removeItem("token");
+                    } else {
+                        console.log('success categories get', data);
+                       setCategories([...data]);
+                    }
+                })
+        }
+    }, []);
+
+
+    const addVideoToCategory = (categoryId, name) => {
+        const token = localStorage.token;
+        if (token) {
+            return fetch(`${API_ROOT}/videos`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }, 
+                body: JSON.stringify({
+                    title: video.snippet.title,
+                    source: video.id.videoId,
+                    category_id: categoryId,
+                }),
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.message) {
+                        // An error will occur if the token is invalid.
+                        // If this happens, you may want to remove the invalid token.
+                        console.log(data.message);
+                    } else {
+                        console.log('added video', data);
+                        alert(`video added to ${name}`);
+                    }
+                }).catch(error => console.log(error));
+        }
+    }
     return (
         <>
             <div className="search-card">
@@ -23,9 +86,12 @@ const SearchCard = ({ video }) => {
                 </div>
                 <DropdownButton id="dropdown-button-drop-up" 
                     title="Add" drop="up">
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        {
+                            categories.map(category => {
+                                return  <Dropdown.Item onClick={() => addVideoToCategory(category.id, category.name)}
+                                href="#/action-1">{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</Dropdown.Item>
+                            })
+                        }
                     </DropdownButton>
             </div>
 
