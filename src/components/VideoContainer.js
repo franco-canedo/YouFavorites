@@ -1,19 +1,11 @@
 import './VideoContainer.css';
-import { useState, useEffect } from 'react';
-import AddModal from './AddModal';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CardContainer from './CardContainer';
 import SearchContainer from './SearchContainer';
 
 
 const VideoContainer = ({categories}) => {
-    const [videos, setVideos] = useState([
-        '9YffrCViTVk',
-        'z73pjtFRZYo',
-        '9YffrCViTVk',
-        'z73pjtFRZYo',
-
-    ]);
 
     const [show, setShow] = useState(false);
     const chosenCategory = useSelector(state => state.category);
@@ -23,14 +15,8 @@ const VideoContainer = ({categories}) => {
         setShow(prevState => !prevState)
     }
 
-    const passChosenCategoryInfo = () => {
-        
-    }
     return (
         <div className="video-container">
-
-
-
             {
                 search ? <SearchContainer /> :
                     <>
@@ -38,15 +24,11 @@ const VideoContainer = ({categories}) => {
                             <h1>+</h1>
                         </div>
                         <CardContainer show={show}
-                            videos={videos}
                             toggleModal={toggleModal}
                             category={chosenCategory} 
                             categories={categories}/>
-
                     </>
             }
-
-
         </div>
     )
 }
