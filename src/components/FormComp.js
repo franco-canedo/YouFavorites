@@ -35,7 +35,6 @@ const FormComp = () => {
             console.log('logedin', res.data);
             localStorage.setItem('token', res.data.jwt);
             localStorage.setItem('google_token', res.data.user.google_token);
-            dispatch(sendUserInfo(userInfo));
             dispatch(setRedirect());   
         })
         .catch(error => console.log(error));

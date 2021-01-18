@@ -73,6 +73,10 @@ ul {
     justify-content: center;
 }
 
+.categories-div li:hover {
+    cursor: pointer;
+}
+
 .category {
     border-bottom: solid;
     min-width: 250px;
@@ -153,6 +157,10 @@ ul {
     0 0 5px #c0baba,
     0px 0 5px rgb(196, 187, 196),
     0px 0 5px rgb(236, 211, 188);
+}
+
+.add-button-category:hover {
+    cursor: pointer;
 }
 
 @keyframes hover_add {

@@ -89,6 +89,10 @@
     0px 0 5px rgb(236, 211, 188);
 }
 
+.add-button:hover {
+    cursor: pointer;
+}
+
 @keyframes hover_add {
     0%{
         transform: translate(0px, 0px);

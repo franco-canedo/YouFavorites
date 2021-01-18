@@ -6,6 +6,7 @@ import VideoContainer from '../components/VideoContainer';
 import './Favorites.css';
 import { API_ROOT, HEADERS } from '../constants';
 import { getProfileFetch } from '../actions';
+import { Redirect } from "react-router-dom";
 
 
 function Favorites() {
@@ -13,6 +14,7 @@ function Favorites() {
   const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const [categories, setCategories] = useState([]);
+  const redirect = useSelector(state => state.redirect);
 
   useEffect(() => {
     dispatch(getProfileFetch());
@@ -46,8 +48,8 @@ function Favorites() {
     }
   };
 
-  const addCategoryClient = (name) => {
-    setCategories(prevState => [...prevState, { name: name }]);
+  const addCategoryClient = (category) => {
+    setCategories(prevState => [...prevState, category]);
   }
 
   const getCategories = () => {
@@ -76,9 +78,18 @@ function Favorites() {
     }
   }
 
+  const logoutFunc = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("google_token");
+    localStorage.removeItem("uid");
+    return <Redirect to="/"/>   
+  }
+
   return (
     <>
-
+      {/* {
+        redirect ? null : [logoutFunc()]
+      } */}
       <Header user={user} />
       <div className="favs-page-container">
         <div>

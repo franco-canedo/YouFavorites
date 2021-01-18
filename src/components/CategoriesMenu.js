@@ -36,6 +36,24 @@ const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
         setEdit(prevState => !prevState);
     }
 
+    const deleteCategory = async (category) => {
+        console.log(category)
+        const fd = new FormData();
+        fd.append('category_id', category.id);
+        const token = localStorage.token;
+        const response = await axios.delete(`${API_ROOT}/categories/delete`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: fd
+        });
+
+        console.log(response);
+
+    }
+
     return (
         <div className={minimize ? 'min-menu' : 'menu-categories'}>
             <div className="cat-title">
@@ -72,7 +90,7 @@ const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
                                         {
                                             edit ? <div className="cat-delete-button">
                                                 <Button variant="outline-danger" size="sm"
-                                                    type="button"
+                                                    type="button" onClick={() => deleteCategory(category)}
                                                 >-</Button>
                                             </div> : null
                                         }

@@ -10,6 +10,7 @@ import youtube from '../apis/youtube';
 import {submitSearch} from '../actions';
 import {videoResults} from '../actions';
 import {logout} from '../actions';
+import {setRedirectLogout} from '../actions';
 
 const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
@@ -77,7 +78,10 @@ const Header = ({user}) => {
                     <Image height={30} src={user.image_url} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
                     <Button variant="dark" size="sm"
-                    onClick={dispatch(logout())}>Logout</Button>
+                    onClick={() => {
+                        dispatch(logout());
+                        dispatch(setRedirectLogout());
+                        }}>Logout</Button>
                 </div>
                
             </div>
