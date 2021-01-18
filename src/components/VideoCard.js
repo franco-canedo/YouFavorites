@@ -1,6 +1,14 @@
 import './VideoCard.css';
+import Button from 'react-bootstrap/Button';
+import DeleteVideoModal from './DeleteVideoModal';
+import {useState} from 'react';
 
 const VideoCard = (props) => {
+    const [show, setShow] = useState(false);
+
+    const toggleModal = () => {
+        setShow(prevState => !prevState);
+    }
     return (
         <>
             <div className="card">
@@ -14,9 +22,13 @@ const VideoCard = (props) => {
                 </div>
                 <div className='title-video'>
                     <h5>{props.video.title}</h5>
+                    <Button variant="outline-danger" 
+                    size="sm" type="button" onClick={toggleModal}>Delete</Button>
                 </div>
             </div>
-
+            <DeleteVideoModal show={show} 
+            toggleModal={toggleModal}
+            video={props.video}/>
         </>
     )
 }
