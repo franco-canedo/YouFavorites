@@ -7,26 +7,26 @@ import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import youtube from '../apis/youtube';
-import {submitSearch} from '../actions';
-import {videoResults} from '../actions';
-import {logout} from '../actions';
-import {setRedirectLogout} from '../actions';
+import { submitSearch } from '../actions';
+import { videoResults } from '../actions';
+import { logout } from '../actions';
+import { setRedirectLogout } from '../actions';
+import { Redirect } from "react-router-dom";
 
 const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
-const Header = ({user}) => {
+const Header = ({ user }) => {
     const [videoSearch, setVideoSearch] = useState('');
     const [videos, setVideos] = useState([]);
     const dispatch = useDispatch();
-    
-
+    // const logout = useSelector(state => state.logout);
+    const [logout, setLogout] = useState(false);
 
     const handleChange = (e) => {
         setVideoSearch(e.target.value)
     }
 
-
-    const search = async (termSearch) => {      
+    const search = async (termSearch) => {
         const response = await youtube.get('/search', {
             params: {
                 q: termSearch
@@ -35,14 +35,30 @@ const Header = ({user}) => {
         console.log(response.data.items);
         dispatch(submitSearch());
         dispatch(videoResults(response.data.items));
-        
         setVideos(response.data.items);
     }
+
+    const logoutAction = () => {
+        // dispatch(logout());
+        setLogout(true);
+        // dispatch(setRedirectLogout());
+    }
+
+    const logoutFunc = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("google_token");
+        localStorage.removeItem("uid");
+        return <Redirect to="/"/>   
+      }
+
     return (
-       
+
         <header>
+            {
+                logout ? [logoutFunc()] : null
+            }
             <div className="header">
-               
+
                 <div className="header-item logo">
                     <div>
                         <i class="fas fa-cubes"></i>
@@ -78,16 +94,13 @@ const Header = ({user}) => {
                     <Image height={30} src={user.image_url} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
                     <Button variant="dark" size="sm"
-                    onClick={() => {
-                        dispatch(logout());
-                        dispatch(setRedirectLogout());
-                        }}>Logout</Button>
+                        onClick={logoutAction}>Logout</Button>
                 </div>
-               
+
             </div>
 
         </header>
-        
+
     )
 }
 

@@ -7,6 +7,7 @@ import videoReducer from './videosReducer';
 import userInfoReducer from './userInfoReducer';
 import userReducer from './userReducer';
 import redirectReducer from './redirectReducer';
+import LogoutReducer from './LogoutReducer';
 
 const allReducers = combineReducers({
     toggle: toggleReducer,
@@ -16,6 +17,7 @@ const allReducers = combineReducers({
     userInfo: userInfoReducer,
     user: userReducer,
     redirect: redirectReducer,
+    logout: LogoutReducer,
   })
   
   export default allReducers;

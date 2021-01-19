@@ -3,9 +3,6 @@ const redirectReducer = (state = false, action) => {
         case 'REDIRECT': 
             let b = true;
             return b;
-        case 'REDIRECT_LOGOUT':
-            let c = false;
-            return c;
         default:
             return state;
     }
