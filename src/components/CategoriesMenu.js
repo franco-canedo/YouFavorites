@@ -5,44 +5,17 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ModalCategory from './ModalCategory';
 import axios from 'axios';
-import {API_ROOT} from '../constants';
-import {selectCategory} from '../actions';
-import {backToCategory} from '../actions';
+import { API_ROOT } from '../constants';
+import { selectCategory } from '../actions';
+import { backToCategory } from '../actions';
 
-const headers = {}
-
-const CategoriesMenu = ({user}) => {
+const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
     const [minimize, setMinimize] = useState(false);
     const [sign, setSign] = useState('<');
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [show, setShow] = useState(false);
+    const [edit, setEdit] = useState(false);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const token = localStorage.token;
-        if (token) {
-            return fetch(`${API_ROOT}/categories`, {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(resp => resp.json())
-                .then(data => {
-                    if (data.message) {
-                        // An error will occur if the token is invalid.
-                        // If this happens, you may want to remove the invalid token.
-                        console.log(data.message);
-                        localStorage.removeItem("token");
-                    } else {
-                        console.log('success categories get', data);
-                       setCategories([...data]);
-                    }
-                })
-        }
-    }, [])
 
     const toggleMenu = () => {
         setMinimize(prevState => !prevState);
@@ -57,21 +30,44 @@ const CategoriesMenu = ({user}) => {
         setShow(prevState => !prevState);
     }
 
-    const addCategoryClient = (name) => {
-        setCategories(prevState => [...prevState, { name: name }]);
+    const toggleEdit = () => {
+        setEdit(prevState => !prevState);
     }
+
+    const deleteCategory = async (category) => {
+        const fd = new FormData();
+        fd.append('category_id', category.id);
+        const token = localStorage.token;
+        const response = await axios.delete(`${API_ROOT}/categories/delete`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: fd
+        });
+
+        console.log(response);
+
+    }
+
     return (
         <div className={minimize ? 'min-menu' : 'menu-categories'}>
             <div className="cat-title">
                 {minimize ? null : <h3>Categories</h3>}
+                {
+                    minimize ? null :
+                        <div className="edit-button">
+                            <Button variant="info" size="sm" onClick={toggleEdit}
+                            >Edit</Button>
+                        </div>
+                }
                 <div className="minimize-button">
-                    <Button variant="outline-light" type="button"
+                    <Button variant="outline-light" type="button" size="sm"
                         value={minimize ? "<" : ">"} onClick={toggleMenu}>
                         {sign}
                     </Button>
                 </div>
-
-                {/* <button onClick={toggleMenu}>^</button> */}
             </div>
             <div>
                 <ul>
@@ -85,14 +81,22 @@ const CategoriesMenu = ({user}) => {
 
                                 </div>
                             }) :
+                            
                             categories.map(category => {
-                                return <div className="categories-div"
-                                onClick={() => {
-                                    dispatch(selectCategory(category.name));
-                                    dispatch(backToCategory());
-                                    }}>
-                                    <div className="category">
-                                        <li>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</li>
+                                return <div className="categories-div">
+                                    <div className={edit ? "category-edit" : "category"}>
+                                        {
+                                            edit ? <div className="cat-delete-button">
+                                                <Button variant="outline-danger" size="sm"
+                                                    type="button" onClick={() => deleteCategory(category)}
+                                                >-</Button>
+                                            </div> : null
+                                        }
+                                        
+                                        <li onClick={() => {
+                                            dispatch(selectCategory(category));
+                                            dispatch(backToCategory());
+                                        }}>{category.name.charAt(0).toUpperCase() + category.name.slice(1)}</li>
                                     </div>
 
                                 </div>
@@ -109,11 +113,11 @@ const CategoriesMenu = ({user}) => {
                     </div>
             }
             {
-                show ?  <ModalCategory show={show} 
-                toggleModal={toggleModal}
-                addCategoryClient={addCategoryClient}/> : null
+                show ? <ModalCategory show={show}
+                    toggleModal={toggleModal}
+                    addCategoryClient={addCategoryClient} /> : null
             }
-           
+
 
 
         </div>

@@ -1,0 +1,13 @@
+.cancel-delete-video {
+    column-count: 1;
+}
+
+.cancel-delete-video div{
+    margin-right: 100px;
+    max-width: 80px;
+    margin-top: 10px;
+}
+
+.cancel-button {
+    margin-top: 20px;
+}

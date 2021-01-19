@@ -42,7 +42,11 @@ const AddModal = (props) => {
                     placeholder="Search YouTube" />
                 </Form.Group>
             </Form>
-            <Button variant="dark" type="button" onClick={() => search(videoSearch)}>
+            <Button variant="dark" type="button" onClick={() => {
+                 props.toggleModal();
+                search(videoSearch);
+               
+                }}>
                     Search
             </Button>
             </Modal.Body>

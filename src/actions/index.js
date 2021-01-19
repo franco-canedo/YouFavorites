@@ -100,4 +100,8 @@ export const setRedirect = () => ({
     type: 'REDIRECT'
 })
 
+export const setRedirectLogout = () => ({
+    type: 'REDIRECT_LOGOUT'
+})
+
 

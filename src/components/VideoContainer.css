@@ -10,7 +10,7 @@
     background-color: var(--colorVideo);
     width: 100vw;
     /* height: 100vh; */
-    min-height: 1000px;
+    min-height: 100vh;
     /* display: flex;
     justify-content: space-between;
     justify-content: center; */
@@ -59,9 +59,15 @@
 .cards-container {
     margin-left: 80px;
     margin-top: 100px;
-    /* display: flex;
-    justify-content: space-between;
+    
+}
+
+.flex-video-div {
+    display: flex;
+    /* justify-content: space-between;
     justify-content: center; */
+    flex-wrap: wrap;
+    background-color: var(--colorVideo);
 }
 
 .add-button {
@@ -87,6 +93,10 @@
     0 0 5px #c0baba,
     0px 0 5px rgb(196, 187, 196),
     0px 0 5px rgb(236, 211, 188);
+}
+
+.add-button:hover {
+    cursor: pointer;
 }
 
 @keyframes hover_add {
