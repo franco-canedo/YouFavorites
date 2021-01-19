@@ -28,8 +28,10 @@ const CardContainer = (props) => {
                             null
                     }
                 </div>
-
+                <div className="flex-video-div">
                 {iterateCategories()}
+                </div>
+
             </div>
             <AddModal show={props.show}
                 toggleModal={props.toggleModal}
