@@ -9,8 +9,6 @@ import { API_ROOT } from '../constants';
 import { selectCategory } from '../actions';
 import { backToCategory } from '../actions';
 
-const headers = {}
-
 const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
     const [minimize, setMinimize] = useState(false);
     const [sign, setSign] = useState('<');
@@ -37,7 +35,6 @@ const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
     }
 
     const deleteCategory = async (category) => {
-        console.log(category)
         const fd = new FormData();
         fd.append('category_id', category.id);
         const token = localStorage.token;
@@ -84,6 +81,7 @@ const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
 
                                 </div>
                             }) :
+                            
                             categories.map(category => {
                                 return <div className="categories-div">
                                     <div className={edit ? "category-edit" : "category"}>
@@ -94,7 +92,7 @@ const CategoriesMenu = ({ user, categories, addCategoryClient }) => {
                                                 >-</Button>
                                             </div> : null
                                         }
-
+                                        
                                         <li onClick={() => {
                                             dispatch(selectCategory(category));
                                             dispatch(backToCategory());

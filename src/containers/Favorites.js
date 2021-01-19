@@ -38,10 +38,8 @@ function Favorites() {
           if (data.message) {
             // An error will occur if the token is invalid.
             // If this happens, you may want to remove the invalid token.
-            console.log(data.message);
             localStorage.removeItem("token");
           } else {
-            console.log('fetch profile', data);
             setUser({ ...data });
           }
         })
@@ -49,6 +47,7 @@ function Favorites() {
   };
 
   const addCategoryClient = (category) => {
+    category.videos = [];
     setCategories(prevState => [...prevState, category]);
   }
 
@@ -68,11 +67,13 @@ function Favorites() {
           if (data.message) {
             // An error will occur if the token is invalid.
             // If this happens, you may want to remove the invalid token.
-            console.log(data.message);
             localStorage.removeItem("token");
           } else {
-            console.log('success categories get', data);
-            setCategories([...data]);
+            let allVideos = [];
+            data.map(category => {
+              allVideos = [...allVideos, ...category.videos]
+            });
+            setCategories([{name: 'all', videos: allVideos}, ...data]);
           }
         })
     }

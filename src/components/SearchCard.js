@@ -29,7 +29,6 @@ const SearchCard = ({ video }) => {
                         console.log(data.message);
                         localStorage.removeItem("token");
                     } else {
-                        console.log('success categories get', data);
                        setCategories([...data]);
                     }
                 })
@@ -60,10 +59,12 @@ const SearchCard = ({ video }) => {
                         // If this happens, you may want to remove the invalid token.
                         console.log(data.message);
                     } else {
-                        console.log('added video', data);
                         alert(`video added to ${name}`);
                     }
-                }).catch(error => console.log(error));
+                }).catch(error => {
+                    console.log(error);
+                    alert(error);
+                });
         }
     }
     return (
