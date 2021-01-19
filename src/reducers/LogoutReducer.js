@@ -1,6 +1,6 @@
 const LogoutReducer = (state = false, action) => {
     switch(action.type) {
-        case 'REDIRECT_LOGOUT':
+        case 'TEST':
             let b = true;
             return b;
         default: 

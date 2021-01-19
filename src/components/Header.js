@@ -38,16 +38,19 @@ const Header = ({ user }) => {
         setVideos(response.data.items);
     }
 
-    const logoutAction = () => {
+    const logoutAction = (e) => {
+        e.preventDefault();
         // dispatch(logout());
+        console.log('logout')
         setLogout(true);
-        // dispatch(setRedirectLogout());
+        dispatch(setRedirectLogout());
     }
 
     const logoutFunc = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("google_token");
         localStorage.removeItem("uid");
+        console.log('return redirect?')
         return <Redirect to="/"/>   
       }
 
@@ -56,6 +59,9 @@ const Header = ({ user }) => {
         <header>
             {
                 logout ? [logoutFunc()] : null
+            }
+            {
+
             }
             <div className="header">
 
@@ -93,7 +99,7 @@ const Header = ({ user }) => {
                     </NavDropdown>
                     <Image height={30} src={user.image_url} roundedCircle />
                     {/* <i class="far fa-id-card"></i> */}
-                    <Button variant="dark" size="sm"
+                    <Button variant="dark" size="sm" type="button"
                         onClick={logoutAction}>Logout</Button>
                 </div>
 
