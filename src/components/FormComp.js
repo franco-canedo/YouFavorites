@@ -10,6 +10,7 @@ import {setRedirect} from '../actions';
 
 
 const headers = {'X-Requested-With': 'XMLHttpRequest'};
+const GOOGLE_KEY=process.env.REACT_APP_GOOGLE_CLIENT_ID
 
 const FormComp = () => {
     // const [redirect, setRedirect] = useState(false);
@@ -47,7 +48,7 @@ const FormComp = () => {
         }
             <div className="google-button">               
                 <GoogleLogin
-                clientId="692431735633-1obtk8vn6tqp47tenh8j3bpdeh20ahk4.apps.googleusercontent.com"
+                clientId={GOOGLE_KEY}
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}

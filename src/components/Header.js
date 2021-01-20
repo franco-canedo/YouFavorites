@@ -13,7 +13,6 @@ import { logout } from '../actions';
 import { setRedirectLogout } from '../actions';
 import { Redirect } from "react-router-dom";
 
-const KEY = 'AIzaSyCfStKLs4sb-QHNsMhhI33Q-MLNrYC3b6Q';
 
 const Header = ({ user }) => {
     const [videoSearch, setVideoSearch] = useState('');
